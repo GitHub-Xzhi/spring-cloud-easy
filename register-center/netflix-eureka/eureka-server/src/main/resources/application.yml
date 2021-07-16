@@ -1,0 +1,24 @@
+server:
+  # 服务端口
+  port: 17000
+
+spring:
+  application:
+    # 应用名称
+    name: eureka-server
+
+eureka:
+  instance:
+    # 应用实例主机名
+    hostname: localhost
+  client:
+    # 是否向注册中心注册该实例，默认true。Eureka单机可以改为false，集群要true。
+    register-with-eureka: false
+    # 是否从Eureka获取注册信息，默认true。Eureka单机可以改为false，集群要true。
+    fetch-registry: false
+    # Eureka服务端地址
+    service-url:
+      # 单机，http://${eureka.instance.hostname}:${server.port}/eureka
+      # 集群，填写其他注册中心的地址，以逗号分隔。
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+
