@@ -30,6 +30,7 @@
     <module>register-center</module>
     <module>config-center</module>
     <module>gateway</module>
+    <module>redis</module>
   </modules>
 
   <dependencyManagement>
