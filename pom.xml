@@ -6,7 +6,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.3.2.RELEASE</version>
-    <relativePath /> <!-- lookup parent from repository -->
+    <relativePath />
   </parent>
 
   <groupId>org.xzhi</groupId>
@@ -24,6 +24,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
     <skipTests>true</skipTests>
+    <log4j2.version>2.17.1</log4j2.version>
   </properties>
 
   <modules>
@@ -64,6 +65,12 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- lombok -->
     <dependency>
@@ -82,6 +89,11 @@
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-all</artifactId>
       <version>5.7.3</version>
+    </dependency>
+    <!--log4j2-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-log4j2</artifactId>
     </dependency>
   </dependencies>
 
