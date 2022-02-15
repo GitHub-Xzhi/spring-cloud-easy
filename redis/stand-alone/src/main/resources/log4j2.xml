@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="info" monitorInterval="60">
+  <!-- status：log4j2自身内部的信息输出 monitorInterval：每隔60秒重新读取配置文件，可以不重启应用的情况下修改配置 -->
+  <Properties>
+    <property name="dir">logs</property>
+    <property name="charset">UTF-8</property>
+    <property name="pattern">[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%-5level] [%thread] [%logger{36}:%line] - %msg%n%ex
+    </property>
+  </Properties>
+  <Appenders>
+    <!-- 全局日志 -->
+    <RollingRandomAccessFile name="run" immediateFlush="true" bufferSize="2048" fileName="${dir}/run.log"
+      filePattern="${dir}/${date:yyyy-MM}/run-%d{yyyy-MM-dd}-%i.log.zip">
+      <PatternLayout pattern="${pattern}" />
+      <Filters>
+        <!--只输出DEBUG、INFO、WARN、ERROR四个级别的日志-->
+        <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL" />
+        <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+      </Filters>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1" />
+        <SizeBasedTriggeringPolicy size="64 MB" />
+      </Policies>
+      <!--默认滚动策略：保存日志文件的最大个数，大于此值会删除旧的日志文件-->
+      <DefaultRolloverStrategy max="30" />
+    </RollingRandomAccessFile>
+    <!-- 全局异常日志 -->
+    <RollingRandomAccessFile name="exception" immediateFlush="true" bufferSize="2048" fileName="${dir}/exception.log"
+      filePattern="${dir}/${date:yyyy-MM}/exception-%d{yyyy-MM-dd}-%i.log.zip">
+      <PatternLayout pattern="${pattern}" />
+      <Filters>
+        <!--只输出ERROR级别的日志-->
+        <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL" />
+        <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
+      </Filters>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1" />
+        <SizeBasedTriggeringPolicy size="64 MB" />
+      </Policies>
+      <DefaultRolloverStrategy max="30" />
+    </RollingRandomAccessFile>
+    <!-- 控制台打印 -->
+    <Console name="console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${pattern}" />
+      <Filters>
+        <!--控制台只打印DEBUG、INFO、WARN、ERROR四个级别的日志-->
+        <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL" />
+        <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+      </Filters>
+    </Console>
+  </Appenders>
+
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="run" />
+      <AppenderRef ref="exception" />
+      <!--线上建议关闭控制台输出-->
+      <!--<AppenderRef ref="console" />-->
+    </Root>
+  </Loggers>
+</configuration>
