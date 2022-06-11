@@ -1,0 +1,34 @@
+server:
+  port: 8081
+spring:
+  redis:
+    # 是否开启集群模式
+    cluster-enable: false
+    host: 127.0.0.1
+    port: 6379
+    timeout: 10000   # 连接超时
+    database: 1
+    password: redis-pwd
+#    # 集群
+#    cluster:
+#      # redis节点
+#      nodes:
+#        - 172.168.63.94:16379
+#        - 172.168.63.95:16379
+#        - 172.168.63.96:16379
+#        - 172.168.63.94:16389
+#        - 172.168.63.95:16389
+#        - 172.168.63.96:16389
+#      # 获取失败 最大重定向次数
+#      max-redirects: 3
+#    # lettuce 连接池
+#    lettuce:
+#      pool:
+#        # 连接池中的最大空闲连接
+#        max-idle: 16
+#        # 连接池最大连接数（使用负值表示没有限制）
+#        max-active: 32
+#        # 连接池中的最小空闲连接
+#        min-idle: 5
+#        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+#        max-wait: 30000ms

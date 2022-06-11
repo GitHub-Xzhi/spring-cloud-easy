@@ -4,8 +4,10 @@
   <Properties>
     <property name="dir">logs</property>
     <property name="charset">UTF-8</property>
-    <property name="pattern">[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%-5level] [%thread] [%logger{36}:%line] - %msg%n%ex
-    </property>
+    <!--简略版-->
+    <property name="pattern">[%d{yyyy-MM-dd HH:mm:ss.SSS}{GMT+8}] [%p] [%t] [%c{36}#%M():%L] - %m%n</property>
+    <!--详细版-->
+    <!--<property name="pattern">[%d{yyyy-MM-dd HH:mm:ss.SSS}{GMT+8}] [%-5level] [%thread] [%logger{36}:%line] - %msg%n%ex</property>-->
   </Properties>
   <Appenders>
     <!-- 全局日志 -->
@@ -55,7 +57,11 @@
       <AppenderRef ref="run" />
       <AppenderRef ref="exception" />
       <!--线上建议关闭控制台输出-->
-      <!--<AppenderRef ref="console" />-->
+      <AppenderRef ref="console" />
     </Root>
+    <Logger name="org.xzhi" level="DEBUG" additivity="false">
+      <AppenderRef ref="run"/>
+      <AppenderRef ref="exception"/>
+    </Logger>
   </Loggers>
 </configuration>
